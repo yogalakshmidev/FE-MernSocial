@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
+// import dotenv from 'dotenv';
+// dotenv.config();
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
@@ -9,11 +11,19 @@ export const UserContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   // const navigate = useNavigate();
-  
-  async function registerUser(formdata, navigate,fetchPosts) {
+  // const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  async function registerUser(formdata, navigate, fetchPosts) {
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/auth/register", formdata);
+      const { data } = await axios.post(
+        "https://be-mernsocial.onrender.com/api/auth/register",
+        formdata
+      );
+
+      // const { data } = await axios.post(
+      //   "http://localhost:6000/api/auth/register",
+      //   formdata
+      // );
 
       toast.success(data.message);
       setIsAuth(true);
@@ -22,24 +32,29 @@ export const UserContextProvider = ({ children }) => {
       setLoading(false);
       fetchPosts();
     } catch (error) {
+      console.log("error in usercontext", error);
       toast.error(error.response.data.message);
       setLoading(false);
     }
   }
 
-  async function loginUser(email, password, navigate,fetchPosts) {
+  async function loginUser(email, password, navigate, fetchPosts) {
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/auth/login", {
-        email,
-        password,
-        navigate,
-      });
+      const { data } =
+       await axios.post("https://be-mernsocial.onrender.com/api/auth/login",
+      // await axios.post("http://localhost:6000/api/auth/login",
+        {
+          email,
+          password,
+          navigate,
+        }
+      );
 
       toast.success(data.message);
       setIsAuth(true);
       setUser(data);
-      // navigate("/");
+      navigate("/");
       setLoading(false);
       fetchPosts();
     } catch (error) {
@@ -51,7 +66,10 @@ export const UserContextProvider = ({ children }) => {
 
   async function fetchUser() {
     try {
-      const { data } = await axios.get("/api/user/me");
+      const { data } = await axios.get(
+        "https://be-mernsocial.onrender.com/api/user/me"
+        // "http://localhost:6000/api/user/me"
+      );
 
       setUser(data);
       setIsAuth(true);
@@ -65,7 +83,10 @@ export const UserContextProvider = ({ children }) => {
 
   async function logoutUser(navigate) {
     try {
-      const { data } = await axios.get("/api/auth/logout");
+      const { data } = await axios.get(
+        "https://be-mernsocial.onrender.com/api/auth/logout"
+        // "http://localhost:6000/api/auth/logout"
+      );
 
       if (data.message) {
         toast.success(data.message);
@@ -78,40 +99,51 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
-async function followUser(id,fetchUser) {
-  try {    
-    // console.log("id and user value in the follow user",id)
-    const {data}= await axios.post(`/api/user/follow/`+ id);
+  async function followUser(id, fetchUser) {
+    try {
+      // console.log("id and user value in the follow user",id)
+      const { data } = await axios.post(
+        `https://be-mernsocial.onrender.com/api/user/follow/` + id
+        // `http://localhost:6000/api/user/follow/` + id
+      );
 
-    toast.success(data.message);
-    fetchUser();
-  } catch (error) {
-    toast.error(error.response.data.message);
+      toast.success(data.message);
+      fetchUser();
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   }
-  
-}
 
-async function updateProfilePic(id, formdata, setFile) {
-  try {
-    const { data } = await axios.put("/api/user/" + id, formdata);
-    toast.success(data.message);
-    fetchUser();
-    setFile(null);
-  } catch (error) {
-    toast.error(error.response.data.message);
+  async function updateProfilePic(id, formdata, setFile) {
+    try {
+      const { data } = await axios.put(
+        "https://be-mernsocial.onrender.com/api/user/" + id,
+        // "http://localhost:6000/api/user/" + id,
+        formdata
+      );
+      toast.success(data.message);
+      fetchUser();
+      setFile(null);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   }
-}
-async function updateProfileName(id, name, setShowInput) {
-  try {
-    const { data } = await axios.put("/api/user/" + id, { name });
-    toast.success(data.message);
-    fetchUser();
-    setShowInput(false);
-  } catch (error) {
-    toast.error(error.response.data.message);
+  async function updateProfileName(id, name, setShowInput) {
+    try {
+      const { data } = await axios.put(
+        "https://be-mernsocial.onrender.com/api/user/" + id,
+        // "http://localhost:6000/api/user/" + id,
+        {
+          name,
+        }
+      );
+      toast.success(data.message);
+      fetchUser();
+      setShowInput(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   }
-}
-
 
   useEffect(() => {
     fetchUser();
@@ -120,7 +152,7 @@ async function updateProfileName(id, name, setShowInput) {
   return (
     <UserContext.Provider
       value={{
-        loginUser,        
+        loginUser,
         isAuth,
         setIsAuth,
         user,
@@ -129,8 +161,8 @@ async function updateProfileName(id, name, setShowInput) {
         logoutUser,
         registerUser,
         followUser,
-        
-        
+        updateProfileName,
+        updateProfilePic,
         // setLoading,
       }}
     >

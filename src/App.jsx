@@ -11,7 +11,7 @@ import Reels from "./pages/Reels";
 import {Loading} from "./components/Loading";
 import UserAccount from './pages/UserAccount';
 import Search from './pages/Search';
-// import ChatPage from './pages/ChatPage';
+import ChatPage from './pages/ChatPage';
 
 const App = () => {
   const { loading, isAuth, user } = UserData();
@@ -41,7 +41,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
             <Route path="/search" element={isAuth? <Search /> : <Login/>} />
 
-            {/* <Route path="/Notification" element={isAuth? <ChatPage /> : <Login/>} /> */}
+            <Route path="/chat" element={isAuth? <ChatPage user={user} /> : <Login/>} />
           </Routes>
           {isAuth && <NavigationBar />}
         </BrowserRouter>
