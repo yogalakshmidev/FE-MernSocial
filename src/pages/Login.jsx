@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserData } from "../context/UserContext";
 import { PostData } from "../context/PostContext";
-
+import axios from 'axios';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,10 +10,17 @@ const Login = () => {
   const navigate = useNavigate();
   const {fetchPosts} = PostData();
 
-  const submitHandler = (e) => {
+  const submitHandler =async (e) => {
     e.preventDefault();
     console.log(email, password);
-    loginUser(email, password,navigate,fetchPosts);
+    await axios.post( "https://be-mernsocial.onrender.com/api/auth/login",
+      // await axios.post("http://localhost:6000/api/auth/login",
+      {
+        email,
+        password,
+        // navigate,
+      })
+    // loginUser(email, password,navigate,fetchPosts);
   };
 
   return (

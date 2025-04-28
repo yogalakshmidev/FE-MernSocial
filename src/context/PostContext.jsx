@@ -12,11 +12,11 @@ export const PostContextProvider = ({ children }) => {
     try {
       const { data } = await axios.get(
         "https://be-mernsocial.onrender.com/api/post/all"
-          // "https://localhost:6000/api/post/all"
+        // "https://localhost:6000/api/post/all"
       );
 
       setPosts(data.posts);
-      
+
       setReels(data.reels);
       setLoading(false);
       console.log(
@@ -37,9 +37,11 @@ export const PostContextProvider = ({ children }) => {
     setAddLoading(true);
     try {
       const { data } = await axios.post(
-        "https://be-mernsocial.onrender.com/api/post/new?type=" 
-        // "https://localhost:6000/api/post/new?type=" 
-        + type, formdata);
+        "https://be-mernsocial.onrender.com/api/post/new?type=" +
+          // "https://localhost:6000/api/post/new?type="
+          type,
+        formdata
+      );
 
       toast.success(data.message);
       fetchPosts();
@@ -56,9 +58,10 @@ export const PostContextProvider = ({ children }) => {
   async function likePost(id) {
     try {
       const { data } = await axios.post(
-        "https://be-mernsocial.onrender.com/api/post/like/"
-        // "https://localhost:6000/api/post/like/"
-         + id);
+        "https://be-mernsocial.onrender.com/api/post/like/" +
+          // "https://localhost:6000/api/post/like/"
+          id
+      );
       toast.success(data.message);
       fetchPosts();
     } catch (error) {
@@ -69,11 +72,13 @@ export const PostContextProvider = ({ children }) => {
   async function addComment(id, comment, setComment, setShow) {
     try {
       const { data } = await axios.post(
-        "https://be-mernsocial.onrender.com/api/post/comment/"
-        // "https://localhost:6000/api/post/comment/"
-         + id, {
-        comment,
-      });
+        "https://be-mernsocial.onrender.com/api/post/comment/" +
+          // "https://localhost:6000/api/post/comment/"
+          id,
+        {
+          comment,
+        }
+      );
       toast.success(data.message);
       fetchPosts();
       setComment("");
@@ -86,9 +91,10 @@ export const PostContextProvider = ({ children }) => {
     setLoading(true);
     try {
       const { data } = await axios.delete(
-        "https://be-mernsocial.onrender.com/api/post/" 
-        // "https://localhost:6000/api/post/" 
-        + id);
+        "https://be-mernsocial.onrender.com/api/post/" +
+          // "https://localhost:6000/api/post/"
+          id
+      );
 
       toast.success(data.message);
       fetchPosts();
@@ -112,9 +118,6 @@ export const PostContextProvider = ({ children }) => {
       toast.error(error.response.data.message);
     }
   }
-
-  
-
 
   useEffect(() => {
     fetchPosts();

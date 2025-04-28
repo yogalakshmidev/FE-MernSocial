@@ -41,9 +41,9 @@ export const UserContextProvider = ({ children }) => {
   async function loginUser(email, password, navigate, fetchPosts) {
     setLoading(true);
     try {
-      const { data } =
-       await axios.post("https://be-mernsocial.onrender.com/api/auth/login",
-      // await axios.post("http://localhost:6000/api/auth/login",
+      const { data } = await axios.post(
+        "https://be-mernsocial.onrender.com/api/auth/login",
+        // await axios.post("http://localhost:6000/api/auth/login",
         {
           email,
           password,
