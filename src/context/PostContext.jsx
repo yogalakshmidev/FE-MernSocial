@@ -98,7 +98,10 @@ export const PostContextProvider = ({ children }) => {
       const { data } = await axios.delete(
         "https://be-mernsocial.onrender.com/api/post/" +
           // "http://localhost:6000/api/post/"+
-          id
+          id,
+          {
+            withCredentials: true, // 🔑 This sends cookies
+          }
       );
 
       toast.success(data.message);
