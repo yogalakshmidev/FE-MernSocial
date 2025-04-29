@@ -7,16 +7,18 @@ export const PostContextProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [reels, setReels] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  
   async function fetchPosts() {
     try {
       const { data } = await axios.get(
-        "https://be-mernsocial.onrender.com/api/post/all"
-        // "https://localhost:6000/api/post/all"
+        "https://be-mernsocial.onrender.com/api/post/all",
+        {
+          withCredentials: true, // 🔑 This sends cookies
+        }
+        // "http://localhost:6000/api/post/all"
       );
 
       setPosts(data.posts);
-
       setReels(data.reels);
       setLoading(false);
       console.log(
@@ -38,7 +40,7 @@ export const PostContextProvider = ({ children }) => {
     try {
       const { data } = await axios.post(
         "https://be-mernsocial.onrender.com/api/post/new?type=" +
-          // "https://localhost:6000/api/post/new?type="
+          // "http://localhost:6000/api/post/new?type="+
           type,
         formdata
       );
@@ -59,7 +61,7 @@ export const PostContextProvider = ({ children }) => {
     try {
       const { data } = await axios.post(
         "https://be-mernsocial.onrender.com/api/post/like/" +
-          // "https://localhost:6000/api/post/like/"
+          // "http://localhost:6000/api/post/like/"+
           id
       );
       toast.success(data.message);
@@ -73,7 +75,7 @@ export const PostContextProvider = ({ children }) => {
     try {
       const { data } = await axios.post(
         "https://be-mernsocial.onrender.com/api/post/comment/" +
-          // "https://localhost:6000/api/post/comment/"
+          // "http://localhost:6000/api/post/comment/"+
           id,
         {
           comment,
@@ -92,7 +94,7 @@ export const PostContextProvider = ({ children }) => {
     try {
       const { data } = await axios.delete(
         "https://be-mernsocial.onrender.com/api/post/" +
-          // "https://localhost:6000/api/post/"
+          // "http://localhost:6000/api/post/"+
           id
       );
 
@@ -109,7 +111,7 @@ export const PostContextProvider = ({ children }) => {
     try {
       const { data } = await axios.delete(
         `https://be-mernsocial.onrender.com/api/post/comment/${id}?commentId=${commentId}`
-        // `https://localhost:6000/api/post/comment/${id}?commentId=${commentId}`
+        // `http://localhost:6000/api/post/comment/${id}?commentId=${commentId}`
       );
 
       toast.success(data.message);

@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import dotenv from 'dotenv';
-// dotenv.config();
-import toast, { Toaster } from "react-hot-toast";
+import toast, { ToastBar, Toaster } from "react-hot-toast";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 const UserContext = createContext();
@@ -17,13 +15,9 @@ export const UserContextProvider = ({ children }) => {
     try {
       const { data } = await axios.post(
         "https://be-mernsocial.onrender.com/api/auth/register",
+        // "http://localhost:6000/api/auth/register",
         formdata
       );
-
-      // const { data } = await axios.post(
-      //   "http://localhost:6000/api/auth/register",
-      //   formdata
-      // );
 
       toast.success(data.message);
       setIsAuth(true);
@@ -43,11 +37,14 @@ export const UserContextProvider = ({ children }) => {
     try {
       const { data } = await axios.post(
         "https://be-mernsocial.onrender.com/api/auth/login",
-        // await axios.post("http://localhost:6000/api/auth/login",
+        // "http://localhost:6000/api/auth/login",
         {
           email,
           password,
           navigate,
+        },
+        {
+          withCredentials: true, // 🔑 This sends cookies
         }
       );
 
@@ -58,7 +55,8 @@ export const UserContextProvider = ({ children }) => {
       setLoading(false);
       fetchPosts();
     } catch (error) {
-      console.log(error.message);
+      console.log("error in login", error.message);
+      // toast.error(error.response.message);
       toast.error(error.response.data.message);
       setLoading(false);
     }
@@ -101,7 +99,7 @@ export const UserContextProvider = ({ children }) => {
 
   async function followUser(id, fetchUser) {
     try {
-      // console.log("id and user value in the follow user",id)
+      console.log("id and user value in the follow user", id);
       const { data } = await axios.post(
         `https://be-mernsocial.onrender.com/api/user/follow/` + id
         // `http://localhost:6000/api/user/follow/` + id
@@ -163,7 +161,6 @@ export const UserContextProvider = ({ children }) => {
         followUser,
         updateProfileName,
         updateProfilePic,
-        // setLoading,
       }}
     >
       {children}
