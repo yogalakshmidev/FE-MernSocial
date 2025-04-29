@@ -7,7 +7,7 @@ export const PostContextProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [reels, setReels] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   async function fetchPosts() {
     try {
       const { data } = await axios.get(
@@ -16,20 +16,14 @@ export const PostContextProvider = ({ children }) => {
         {
           withCredentials: true, // 🔑 This sends cookies
         }
-       
       );
 
       setPosts(data.posts);
       setReels(data.reels);
       setLoading(false);
-      console.log(
-        "set post data and set reels data are",
-        posts,
-        reels,
-        data.reels.caption
-      );
+      console.log("set post data and set reels data are", posts, reels);
     } catch (error) {
-      console.log("error in add post",error);
+      console.log("error in add post", error);
       setLoading(false);
     }
   }
@@ -39,15 +33,12 @@ export const PostContextProvider = ({ children }) => {
   async function addPost(formdata, setFile, setFilePrev, setCaption, type) {
     setAddLoading(true);
     try {
-      
       const { data } = await axios.post(
-        
-        "https://be-mernsocial.onrender.com/api/post/new?type="
-        +type,
-          // `http://localhost:6000/api/post/new?type=${type}`,
+        "https://be-mernsocial.onrender.com/api/post/new?type=" + type,
+        // `http://localhost:6000/api/post/new?type=${type}`,
         formdata
       );
-      alert("type is",type)
+      // alert("type is",type)
       toast.success(data.message);
       fetchPosts();
       setFile("");
@@ -99,9 +90,9 @@ export const PostContextProvider = ({ children }) => {
         "https://be-mernsocial.onrender.com/api/post/" +
           // "http://localhost:6000/api/post/"+
           id,
-          {
-            withCredentials: true, // 🔑 This sends cookies
-          }
+        {
+          withCredentials: true, // 🔑 This sends cookies
+        }
       );
 
       toast.success(data.message);
