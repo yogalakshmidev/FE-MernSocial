@@ -15,9 +15,9 @@ export const PostContextProvider = ({ children }) => {
         // "https://localhost:6000/api/post/all"
       );
 
-      setPosts(posts);
+      setPosts(data.posts);
 
-      setReels(reels);
+      setReels(data.reels);
       setLoading(false);
       console.log(
         "set post data and set reels data are",
