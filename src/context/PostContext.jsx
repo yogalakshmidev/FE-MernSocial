@@ -36,7 +36,10 @@ export const PostContextProvider = ({ children }) => {
       const { data } = await axios.post(
         "https://be-mernsocial.onrender.com/api/post/new?type=" + type,
         // `http://localhost:6000/api/post/new?type=${type}`,
-        formdata
+        formdata,
+        {
+          withCredentials: true, // 🔑 This sends cookies
+        }
       );
       // alert("type is",type)
       toast.success(data.message);
@@ -56,7 +59,10 @@ export const PostContextProvider = ({ children }) => {
       const { data } = await axios.post(
         "https://be-mernsocial.onrender.com/api/post/like/" +
           // "http://localhost:6000/api/post/like/"+
-          id
+          id,
+          {
+            withCredentials: true, // 🔑 This sends cookies
+          }
       );
       toast.success(data.message);
       fetchPosts();
