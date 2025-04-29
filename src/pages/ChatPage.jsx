@@ -16,7 +16,9 @@ const ChatPage = ({ user }) => {
 
   async function fetchAllUsers() {
     try {
-      const { data } = await axios.get("/api/user/all?search=" + query);
+      const { data } = await axios.get(
+        "https://be-mernsocial.onrender.com/api/user/all?search=" 
+        + query);
 
       setUsers(data);
     } catch (error) {
@@ -26,7 +28,9 @@ const ChatPage = ({ user }) => {
 
   const getAllChats = async () => {
     try {
-      const { data } = await axios.get("/api/messages/chats");
+      const { data } = await axios.get(
+        "https://be-mernsocial.onrender.com/api/messages/chats"
+      );
       setChats(data);
     } catch (error) {
       console.log(error);

@@ -62,7 +62,9 @@ const PostCard = ({ type, value }) => {
   async function updateCaption() {
     setCaptionLoading(true);
     try {
-      const { data } = await axios.put("/api/post/" + value._id, { caption });
+      const { data } = await axios.put(
+        "https://be-mernsocial.onrender.com/api/post/" 
+        + value._id, { caption });
 
       toast.success(data.message);
       fetchPosts();

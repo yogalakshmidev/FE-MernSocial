@@ -72,7 +72,9 @@ const Account = ({ user }) => {
   async function followData() {
     try {
       
-      const { data } = await axios.get("/api/user/followdata/" + user.data._id);
+      const { data } = await axios.get(
+        "https://be-mernsocial.onrender.com/api/user/followdata/" 
+        + user.data._id);
       // console.log("Followers data", data);
       setFollowersData(data.followers);
       setFollowingsData(data.followings);
@@ -117,7 +119,9 @@ const Account = ({ user }) => {
   async function updatePassword(e) {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/user/" + user._id, {
+      const { data } = await axios.post(
+        "https://be-mernsocial.onrender.com/api/user/"
+         + user._id, {
         oldPassword,
         newPassword,
       });

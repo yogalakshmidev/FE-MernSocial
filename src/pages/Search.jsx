@@ -10,7 +10,9 @@ const Search = () => {
   async function fetchUsers() {
     setLoading(true);
     try {
-      const { data } = await axios.get("/api/user/all?search=" + search);
+      const { data } = await axios.get(
+        "https://be-mernsocial.onrender.com/api/user/all?search=" 
+        + search);
 
       setUsers(data);
       // console.log("all users available for search",users,users.data,users.data[0]._id,users.data[0].name);

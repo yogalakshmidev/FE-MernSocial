@@ -23,7 +23,9 @@ const UserAccount = ({ user: loggedInUser }) => {
 
   async function fetchUser() {
     try {
-      const { data } = await axios.get("/api/user/" + params.id);
+      const { data } = await axios.get(
+        "https://be-mernsocial.onrender.com/api/user/" 
+        + params.id);
       setUser(data);
       setLoading(false);
     } catch (error) {
@@ -96,7 +98,9 @@ const UserAccount = ({ user: loggedInUser }) => {
   async function followData() {
     try {
       // console.log("user data for follow", user.data._id);
-      const { data } = await axios.get("/api/user/followdata/" + user.data._id);
+      const { data } = await axios.get(
+        "https://be-mernsocial.onrender.com/api/user/followdata/"
+         + user.data._id);
       // console.log("Followers data", data);
       setFollowersData(data.followers);
       setFollowingsData(data.followings);

@@ -12,10 +12,11 @@ export const PostContextProvider = ({ children }) => {
     try {
       const { data } = await axios.get(
         "https://be-mernsocial.onrender.com/api/post/all",
+        //  "http://localhost:6000/api/post/all",
         {
           withCredentials: true, // 🔑 This sends cookies
         }
-        // "http://localhost:6000/api/post/all"
+       
       );
 
       setPosts(data.posts);
@@ -38,10 +39,12 @@ export const PostContextProvider = ({ children }) => {
   async function addPost(formdata, setFile, setFilePrev, setCaption, type) {
     setAddLoading(true);
     try {
+      alert("type is",type)
       const { data } = await axios.post(
-        "https://be-mernsocial.onrender.com/api/post/new?type=" +
-          // "http://localhost:6000/api/post/new?type="+
-          type,
+        
+        "https://be-mernsocial.onrender.com/api/post/new?type="
+        +type,
+          // `http://localhost:6000/api/post/new?type=${type}`,
         formdata
       );
 

@@ -10,7 +10,9 @@ const MessageInput = ({ setMessages, selectedChat }) => {
   const handleMessage = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/messages", {
+      const { data } = await axios.post(
+        "https://be-mernsocial.onrender.com/api/messages", 
+        {
         message: textMsg,
         recieverId: selectedChat.users[0]._id,
       });

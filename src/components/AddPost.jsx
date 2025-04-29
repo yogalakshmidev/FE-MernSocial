@@ -27,7 +27,6 @@ const AddPost = ({ type }) => {
 
     formdata.append("caption", caption);
     formdata.append("file", file);
-    alert(type)
     addPost(formdata, setFile, setCaption, setFilePrev, type);
     
   };
@@ -49,7 +48,7 @@ const AddPost = ({ type }) => {
           <input
             type="file"
             className="custom-input"
-            accept={type === 'post' ? "image/*" : "video/*"}
+            accept={type === "post" ? "image/*" : "video/*"}
             onChange={changeFileHandler}
             required
           />

@@ -42,7 +42,8 @@ const MessageContainer = ({ selectedChat, setChats }) => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        "/api/messages/" + selectedChat.users[0]._id
+        "https://be-mernsocial.onrender.com/api/messages/" 
+        + selectedChat.users[0]._id
       );
 
       setMessages(data);

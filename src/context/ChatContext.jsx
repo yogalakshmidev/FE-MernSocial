@@ -10,7 +10,9 @@ export const ChatContextProvider = ({ children }) => {
 
   async function createChat(id) {
     try {
-      const { data } = await axios.post("/api/messages", {
+      const { data } = await axios.post(
+        "https://be-mernsocial.onrender.com/api/messages",
+         {
         recieverId: id,
         message: "hii",
       });
