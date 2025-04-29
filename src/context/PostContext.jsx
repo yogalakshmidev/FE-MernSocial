@@ -37,9 +37,9 @@ export const PostContextProvider = ({ children }) => {
     setAddLoading(true);
     try {
       const { data } = await axios.post(
-        "https://be-mernsocial.onrender.com/api/post/new?type=" +
+        "https://be-mernsocial.onrender.com/api/post/new?type=post" +
           // "https://localhost:6000/api/post/new?type="
-          type,
+          // type,
         formdata
       );
 
