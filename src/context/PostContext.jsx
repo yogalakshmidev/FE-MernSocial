@@ -26,7 +26,7 @@ export const PostContextProvider = ({ children }) => {
         data.reels.caption
       );
     } catch (error) {
-      console.log(error);
+      console.log("error in add post",error);
       setLoading(false);
     }
   }
